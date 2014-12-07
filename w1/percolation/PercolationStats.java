@@ -33,7 +33,7 @@ public class PercolationStats {
         return Math.abs(random.nextInt()) % N + 1;
     }
 
-    private double mean() {
+    public double mean() {
         double sum = 0;
         for (int i = 0; i < T; ++i) {
             sum += stats[i];
@@ -41,7 +41,7 @@ public class PercolationStats {
         return sum / T;
     }
 
-    private double stddev() {
+    public double stddev() {
         double mean = mean();
         double sum = 0;
         for (int i = 0; i < T; ++i) {
