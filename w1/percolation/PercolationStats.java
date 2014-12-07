@@ -1,15 +1,14 @@
 import java.util.Random;
-import java.lang.Math;
 
 public class PercolationStats {
 
-    private double[] Stats;
-    int N;
-    int T;
-    Random random = new Random();
+    private double[] stats;
+    private int N;
+    private int T;
+    private Random random = new Random();
 
     public PercolationStats(int n, int t) {
-        Stats = new double[t];
+        stats = new double[t];
         N = n;
         T = t;
 
@@ -26,7 +25,7 @@ public class PercolationStats {
                     }
                 }
             }
-            Stats[i] = (double)open / (double)(N * N);
+            stats[i] = (double) open / (double) (N * N);
         }
     }
 
@@ -37,7 +36,7 @@ public class PercolationStats {
     private double mean() {
         double sum = 0;
         for (int i = 0; i < T; ++i) {
-            sum += Stats[i];
+            sum += stats[i];
         }
         return sum / T;
     }
@@ -46,7 +45,7 @@ public class PercolationStats {
         double mean = mean();
         double sum = 0;
         for (int i = 0; i < T; ++i) {
-            sum += (Stats[i] - mean) * (Stats[i] - mean);
+            sum += (stats[i] - mean) * (stats[i] - mean);
         }
         return sum / (T - 1);
     }
