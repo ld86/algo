@@ -4,6 +4,9 @@ public class Percolation {
     private boolean[] blocks;
 
     public Percolation(int n) {
+        if (n < 1) {
+            throw new IllegalArgumentException();
+        }
         UF = new WeightedQuickUnionUF(n * n + 2);
         N = n;
         blocks = new boolean[n * n];
@@ -31,8 +34,16 @@ public class Percolation {
         for (int a = -1; a < 2; a++) {
             for (int b = -1; b < 2; b++) {
                 if (a != b && a != -b) {
-                    if (isOpen(i + a, j + b)) {
-                        UF.union(1 + convert(i, j), 1 + convert(i + a, j + b));
+                    int ni = i + a;
+                    int nj = j + b;
+                    if (ni < 1 || ni > N - 1) {
+                        continue;
+                    }
+                    if (nj < 1 || nj > N - 1) {
+                        continue;
+                    }
+                    if (isOpen(ni, nj)) {
+                        UF.union(1 + convert(i, j), 1 + convert(ni, nj));
                     }
                 }
             }
@@ -40,16 +51,13 @@ public class Percolation {
     }
 
     public boolean isOpen(int i, int j) {
-        if (i < 1 || i > N - 1) {
-            return false;
-        }
-        if (j < 1 || j > N - 1) {
-            return false;
-        }
         return blocks[convert(i, j)];
     }
 
     public boolean isFull(int i, int j) {
+        if (!blocks[convert(i, j)]) {
+            return false;
+        }
         return UF.connected(0, convert(i, j) + 1);
     }
 

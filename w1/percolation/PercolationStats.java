@@ -30,7 +30,7 @@ public class PercolationStats {
     }
 
     private int random() {
-        return Math.abs(random.nextInt()) % N + 1;
+        return random.nextInt(N) + 1;
     }
 
     public double mean() {
